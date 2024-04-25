@@ -1,0 +1,1 @@
+CREATE (b: Raza{name:"Westie"})
