@@ -1,4 +1,3 @@
-
 /**
  * 
  */
@@ -58,32 +57,32 @@ public class EmbeddedNeo4j implements AutoCloseable{
         }
     }
     
-    public LinkedList<String> getPerros()
+    public LinkedList<String> getDogs()
     {
         try ( Session session = driver.session() )
         {
     
-        LinkedList<String> actors = session.readTransaction( new TransactionWork<LinkedList<String>>()
+        LinkedList<String> dogs = session.readTransaction( new TransactionWork<LinkedList<String>>()
             {
                 @Override
                 public LinkedList<String> execute( Transaction tx )
                 {
                      //Result result = tx.run( "MATCH (people:Person) RETURN people.name");
                 	Result result = tx.run( "MATCH (perro:PERRO) RETURN perro.name");
-                    LinkedList<String> myactors = new LinkedList<String>();
+                    LinkedList<String> mydogs = new LinkedList<String>();
                     List<Record> registros = result.list();
                     for (int i = 0; i < registros.size(); i++) {
-                    	 //myactors.add(registros.get(i).toString());
-                    	myactors.add(registros.get(i).get("perro.name").asString());
+                    	 //mydogs.add(registros.get(i).toString());
+                    	mydogs.add(registros.get(i).get("perro.name").asString());
                     }
-                    return myactors;
+                    return mydogs;
                 }
             } );
-            return actors;
+            return dogs;
         }
     }
     
-    public LinkedList<String> getPerrosBySexo(String actor)
+    public LinkedList<String> getPerrosBySexo(String dog)
     {
         try (Session session = driver.session() )
         {
@@ -94,14 +93,14 @@ public class EmbeddedNeo4j implements AutoCloseable{
                 public LinkedList<String> execute( Transaction tx )
                 {
                     Result result = tx.run( "MATCH (n:PERRO {name: \"" + perros + "\"})-[:Es]->(sexo) RETURN sexo.opc");
-                    LinkedList<String> myactors = new LinkedList<String>();
+                    LinkedList<String> mydogs = new LinkedList<String>();
                     List<Record> registros = result.list();
                     for (int i = 0; i < registros.size(); i++) {
-                   	 //myactors.add(registros.get(i).toString());
-                    myactors.add(registros.get(i).get("sexo.opc").asString());
+                   	 //mydogs.add(registros.get(i).toString());
+                    mydogs.add(registros.get(i).get("sexo.opc").asString());
                     }
                     
-                    return myactors;
+                    return mydogs;
                 }
             } );
             

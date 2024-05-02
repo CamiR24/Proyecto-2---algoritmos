@@ -24,7 +24,7 @@ public class App {
 		
 		try ( EmbeddedNeo4j db = new EmbeddedNeo4j( boltURL, username, password ) )
         {
-		 	LinkedList<String> myactors = db.getActors();
+			LinkedList<String> myactors = db.getActors();
 		 	
 		 	for (int i = 0; i < myactors.size(); i++) {
 		 		System.out.println(myactors.get(i));
