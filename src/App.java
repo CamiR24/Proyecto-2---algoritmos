@@ -19,15 +19,15 @@ public class App {
 	public static void main(String[] args) {
 		
 		String username = "neo4j";
-		String password = "densities-feelings-tubes";
-		String boltURL = "bolt://44.192.99.82:7687";
+		String password = "match-kill-lookouts";
+		String boltURL = "bolt://3.238.147.237:7687";
 		
-		try ( EmbeddedNeo4j db = new EmbeddedNeo4j( boltURL, username, password ) )
+		try (EmbeddedNeo4j db = new EmbeddedNeo4j( boltURL, username, password ) )
         {
-			LinkedList<String> myactors = db.getActors();
+			LinkedList<String> mydogs = db.getdogs();
 		 	
-		 	for (int i = 0; i < myactors.size(); i++) {
-		 		System.out.println(myactors.get(i));
+		 	for (int i = 0; i < mydogs.size(); i++) {
+		 		System.out.println(mydogs.get(i));
 		 	}
         	
         } catch (Exception e) {
@@ -35,38 +35,55 @@ public class App {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Ingrese el nombre de un actor");
+		System.out.println("Ingresa el nombre de tu perro");
 		Scanner in = new Scanner(System.in);
-		String myActor = in.nextLine();
+		String myDogs = in.nextLine();
 		
-		try ( EmbeddedNeo4j db = new EmbeddedNeo4j( boltURL, username, password ) )
+		try (EmbeddedNeo4j db = new EmbeddedNeo4j(boltURL, username, password))
         {
-		 	LinkedList<String> movies = db.getMoviesByActor(myActor);
+		 	LinkedList<String> sex = db.getDogsBySex(myDogs);
 		 	
-		 	for (int i = 0; i < movies.size(); i++) {
-		 		System.out.println(movies.get(i));
-		 		
-		 	}
+			for (int i = 0; i < sex.size(); i++) {
+				System.out.println(sex.get(i));
+			}
         	
         } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		System.out.println("Ingrese una nueva Pelicula");
-		System.out.println("Ingrese Nombre de la pelicula");
-		String movieTitle = in.nextLine();
-		System.out.println("Ingrese Año Lanzamiento");
-		int movieReleaseYear = Integer.parseInt(in.nextLine());
-		System.out.println("Ingrese Descripcion");
-		String movieTagLine = in.nextLine();
+		System.out.println("Ingrese el nombre del perro");
+		String name = in.nextLine();
+		System.out.println("Ingrese la raza del perro");
+		String raza = in.nextLine();
+		System.out.println("Ingrese el nombre del dueño");
+		String owner = in.nextLine();
+		System.out.println("Ingrese ubicación");
+		String location = in.nextLine();
+		System.out.println("Ingrese edad del perro");
+		int age = Integer.parseInt(in.nextLine());
+		System.out.println("Ingrese peso del perro");
+		String peso = in.nextLine();
+		float pesoF = new Float(peso);
+		System.out.println("Ingrese tamaño");
+		String size = in.nextLine();
+		System.out.println("Ingrese color");
+		String color = in.nextLine();
+		System.out.println("Ingrese si tiene pedigree o no");
+		String pedigree = in.nextLine();
+		System.out.println("Ingrese antecedentes de enferemedades");
+		String antecedentes = in.nextLine();
+		System.out.println("Ingrese si ya tuvo pareja anteriormente");
+		String perruno = in.nextLine();
+		System.out.println("Ingrese si se quiere quedar con la cría");
+		String cria = in.nextLine();
 		
 		try ( EmbeddedNeo4j db = new EmbeddedNeo4j( boltURL, username, password ) )
         {
-		 	String result = db.insertMovie(movieTitle, movieReleaseYear, movieTagLine);
+			String result = db.insertPerro(name, raza, owner, location, age, pesoF, size, color, pedigree, antecedentes, perruno, cria);
 		 	
 		 	if (result.equalsIgnoreCase("OK")) {
-		 		System.out.println("Pelicula insertada correctamente");
+		 		System.out.println("Perro insertado correctamente");
 		 	}
         	
         } catch (Exception e) {

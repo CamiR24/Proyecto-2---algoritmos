@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url('fondo_perfil.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <form action="profile.html" method="post">
+        <h2>Registro de Perro</h2>
+        <label for="nombre_perro">Nombre del perro:</label>
+        <input type="text" id="nombre_perro" name="nombre_perro" required>
+        
+        <label for="raza">Raza:</label>
+        <input type="text" id="raza" name="raza" required>
+
+        <label for="ubicacion">Ubicación:</label>
+        <select id="ubicacion" name="ubicacion" required>
+            <option value="" disabled selected>Selecciona un departamento</option>
+            <option value="Guatemala">Guatemala</option>
+            <option value="Baja Verapaz">Baja Verapaz</option>
+            <option value="Alta Verapaz">Alta Verapaz</option>
+            <option value="El Progreso">El Progreso</option>
+            <option value="Izabal">Izabal</option>
+            <option value="Zacapa">Zacapa</option>
+            <option value="Chiquimula">Chiquimula</option>
+            <option value="Santa Rosa">Santa Rosa</option>
+            <option value="Jalapa">Jalapa</option>
+            <option value="Jutiapa">Jutiapa</option>
+            <option value="Sacatepéquez">Sacatepéquez</option>
+            <option value="Chimaltenango">Chimaltenango</option>
+            <option value="Escuintla">Escuintla</option>
+            <option value="Sololá">Sololá</option>
+            <option value="Totonicapán">Totonicapán</option>
+            <option value="Quetzaltenango">Quetzaltenango</option>
+            <option value="Suchitepéquez">Suchitepéquez</option>
+            <option value="Retalhuleu">Retalhuleu</option>
+            <option value="San Marcos">San Marcos</option>
+            <option value="Huehuetenango">Huehuetenango</option>
+            <option value="Quiché">Quiché</option>
+            <option value="Baja Verapaz">Baja Verapaz</option>
+            <option value="Alta Verapaz">Alta Verapaz</option>
+            <option value="Petén">Petén</option>
+            <option value="El Progreso">El Progreso</option>
+            <option value="Izabal">Izabal</option>
+            <option value="Zacapa">Zacapa</option>
+            <option value="Chiquimula">Chiquimula</option>
+            <option value="Santa Rosa">Santa Rosa</option>
+            <option value="Jalapa">Jalapa</option>
+            <option value="Jutiapa">Jutiapa</option>
+        </select>
+
+        <label for="edad">Edad:</label>
+        <input type="text" id="edad" name="edad" required>
+
+        <label for="peso">Peso:</label>
+        <input type="text" id="peso" name="peso" required>
+        
+        <label for="ubicacion">Tamaño:</label>
+        <select id="ubicacion" name="ubicacion">
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+        </select>
+
+        <label for="color">Color:</label>
+        <input type="text" id="color" name="color" required>
+
+        <label for="ha_tenido_pareja">¿Ha tenido pareja?</label>
+        <select id="ha_tenido_pareja" name="ha_tenido_pareja">
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+        </select>
+
+        <label for="quedarse_cria">¿Desea quedarse alguna cría?</label>
+        <select id="quedarse_cria" name="quedarse_cria">
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+        </select>
+
+        <label for="nombre_dueno">Nombre del dueño:</label>
+        <input type="text" id="nombre_dueno" name="nombre_dueno" required>
+
+        <label for="tiene_pedigree">¿Tiene pedigrí?</label>
+        <select id="tiene_pedigree" name="tiene_pedigree">
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+        </select>
+
+        <label for="sexo_perro">Sexo del perro:</label>
+        <select id="sexo_perro" name="sexo_perro">
+            <option value="hembra">Hembra</option>
+            <option value="macho">Macho</option>
+        </select>
+
+        <label for="tiene_entrenamiento">¿Tiene entrenamiento?</label>
+        <select id="tiene_entrenamiento" name="tiene_entrenamiento">
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+        </select>
+
+        <label for="antecedentes">Antecedentes (enfermedades):</label>
+        <textarea id="antecedentes" name="antecedentes" rows="4"></textarea>
+
+        <input type="submit" value="Registrar">
+    </form>
+</body>
+</html>
