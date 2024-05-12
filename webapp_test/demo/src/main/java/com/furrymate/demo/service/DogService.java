@@ -28,17 +28,49 @@ public class DogService {
         driver = GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic("neo4j", "123456789"));
     }
 
+    @SuppressWarnings("deprecation")
     public void createPerro(Perro perro) {
-        try (Session session = driver.session()) {
-            String query = "CREATE (p:Perro {nombre: $nombre, raza: $raza, ubicacion: $ubicacion, edad: $edad}) RETURN p";
-            session.run(query, parameters(
-                "nombre", perro.getNombre(),
-                "raza", perro.getRaza(),
-                "ubicacion", perro.getUbicacion(),
-                "edad", perro.getEdad()
-            ));
-        }
+    try (Session session = driver.session()) {
+        session.writeTransaction(tx -> {
+            tx.run("CREATE (p:Perro {nombre: $nombre})",
+                parameters("nombre", perro.getNombre()));
+
+            // Crea y conecta atributos como nodos independientes
+            String[] queries = {
+                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Raza {nombre: $raza}) CREATE (p)-[:ES_DE_RAZA]->(a)",
+                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Ubicacion {nombre: $ubicacion}) CREATE (p)-[:ESTA_EN_UBICACION]->(a)",
+                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Tamaño {tipo: $tamaño}) CREATE (p)-[:TIENE_TAMAÑO]->(a)",
+                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Edad {valor: $edad}) CREATE (p)-[:TIENE_EDAD]->(a)",
+                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Pedigree {valor: $pedigree}) CREATE (p)-[:TIENE_PEDIGREE]->(a)",
+                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Entrenado {valor: $entrenado}) CREATE (p)-[:ESTA_ENTRENADO]->(a)",
+                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Peso {valor: $peso}) CREATE (p)-[:TIENE_PESO]->(a)",
+                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Sexo {tipo: $sexo}) CREATE (p)-[:TIENE_SEXO]->(a)",
+                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Enfermedades {estado: $enfermedades}) CREATE (p)-[:TIENE_ENFERMEDADES]->(a)",
+                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Cría {estado: $cria}) CREATE (p)-[:ES_PARA_CRIA]->(a)",
+                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Color {nombre: $color}) CREATE (p)-[:ES_DE_COLOR]->(a)"
+            };
+
+            for (String query : queries) {
+                tx.run(query, parameters(
+                    "nombre", perro.getNombre(),
+                    "raza", perro.getRaza(),
+                    "ubicacion", perro.getUbicacion(),
+                    "tamaño", perro.getTamaño(),
+                    "edad", perro.getEdad(),
+                    "pedigree", perro.getTienePedigree(),
+                    "entrenado", perro.getTieneEntrenamiento(),
+                    "peso", perro.getPeso(),
+                    "sexo", perro.getSexo(),
+                    "enfermedades", perro.getTieneEnfermedades(),
+                    "cria", perro.getCria(),
+                    "color", perro.getColor()
+                ));
+            }
+            return null;
+        });
     }
+}
+
 
     public List<Perro> getPerrosDetails() {
         List<Perro> perros = new ArrayList<>();
@@ -55,10 +87,11 @@ public class DogService {
                 OPTIONAL MATCH (p)-[:ESTA_ENTRENADO]->(entrenado)
                 OPTIONAL MATCH (p)-[:TIENE_ENFERMEDADES]->(enfermedades)
                 OPTIONAL MATCH (p)-[:ES_PARA_CRIA]->(cria)
+                OPTIONAL MATCH (p)-[:ES_DE_COLOR]->(color)
                 RETURN p.nombre AS nombre, raza.nombre AS raza, ubicacion.nombre AS ubicacion, 
-                    edad.valor AS edad, peso.valor AS peso, tamaño.valor AS tamaño, 
+                    edad.valor AS edad, peso.valor AS peso, tamaño.tipo AS tamaño, 
                     sexo.tipo AS sexo, pedigree.valor AS tienePedigree, entrenado.valor AS tieneEntrenamiento,
-                    enfermedades.estado AS tieneEnfermedades, cria.estado AS paraCria
+                    enfermedades.estado AS tieneEnfermedades, cria.estado AS paraCria, color.nombre AS color 
             """;
             Result result = session.run(query);
             while (result.hasNext()) {
@@ -75,6 +108,7 @@ public class DogService {
                 perro.setTieneEntrenamiento(record.get("tieneEntrenamiento", Values.value(false)).asBoolean());
                 perro.setTieneEnfermedades(record.get("tieneEnfermedades", Values.value(false)).asBoolean());
                 perro.setParaCria(record.get("paraCria", Values.value(false)).asBoolean());
+                perro.setColor(record.get("color", Values.value("Desconocido")).asString());
                 perros.add(perro);
             }
         }

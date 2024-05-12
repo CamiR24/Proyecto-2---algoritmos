@@ -8,9 +8,9 @@
 </head>
 <body>
     <div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
-    <form th:action="@{/registro}" method="post" th:object="${perro}">
+    <form th:action="@{/perros/registro}" method="post" th:object="${perro}">
         <h2>Registro de Perro</h2>
-        label for="nombre">Nombre del perro:</label>
+        <label for="nombre">Nombre del perro:</label>
         <input type="text" th:field="*{nombre}" id="nombre" required>
 
         <label for="raza">Raza:</label>

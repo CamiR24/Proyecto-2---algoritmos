@@ -2,6 +2,10 @@ package com.furrymate.demo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+
+
+import com.furrymate.demo.model.Perro;
 
 @Controller
 public class HomeController {
@@ -22,7 +26,8 @@ public class HomeController {
     }
 
     @GetMapping("/dog-register")
-    public String dogsRegister() {
-        return "registro";  // Nombre del archivo HTML en 'src/main/resources/templates'
+    public String dogsRegister(Model model) {
+        model.addAttribute("perro", new Perro());  // Asegúrate de que el modelo Perro esté añadido al modelo
+        return "registro";
     }
 }

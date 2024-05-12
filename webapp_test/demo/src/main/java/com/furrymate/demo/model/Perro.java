@@ -117,6 +117,14 @@ public class Perro {
         return tieneEntrenamiento;
     }    
 
+    public boolean getTieneEnfermedades() {
+        return tieneEnfermedades;
+    }    
+
+    public boolean getCria() {
+        return cria;
+    }    
+
     public void setAntecedentes(String antecedentes) {
         this.antecedentes = antecedentes;
     }
