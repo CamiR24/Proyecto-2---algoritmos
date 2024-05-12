@@ -65,7 +65,7 @@ public class EmbeddedNeo4j implements AutoCloseable{
         LinkedList<String> dogs = session.readTransaction( new TransactionWork<LinkedList<String>>()
             {
                 @Override
-                public LinkedList<String> execute( Transaction tx )
+                public LinkedList<String> execute(Transaction tx)
                 {
                      //Result result = tx.run( "MATCH (people:Person) RETURN people.name");
                 	Result result = tx.run( "MATCH (perro:PERRO) RETURN perro.name");
@@ -82,7 +82,7 @@ public class EmbeddedNeo4j implements AutoCloseable{
         }
     }
     
-    public LinkedList<String> getPerrosBySexo(String dog)
+    public LinkedList<String> getDogsBySex(String dog)
     {
         try (Session session = driver.session() )
         {
@@ -99,7 +99,6 @@ public class EmbeddedNeo4j implements AutoCloseable{
                    	 //mydogs.add(registros.get(i).toString());
                     mydogs.add(registros.get(i).get("sexo.opc").asString());
                     }
-                    
                     return mydogs;
                 }
             } );
@@ -108,7 +107,7 @@ public class EmbeddedNeo4j implements AutoCloseable{
         }
     }
     
-    public String insertPerro(String name, String raza, String owner, String ubicacion, int age, float peso, String size, String color, String pedigree, String antecedentes, String perruno, String cria) {
+    public String insertDog(String name, String raza, String owner, String ubicacion, int age, float peso, String size, String color, String pedigree, String antecedentes, String perruno, String cria) {
     	try (Session session = driver.session() )
         {
 
