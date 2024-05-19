@@ -1,56 +1,83 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url('fondo_perfil.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+        .profile-info {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .button-container a {
+            margin: 10px;
+        }
+        img {
+            max-width: 200px;
+            height: auto;
+        }
+    </style>
 </head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Profile</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        background-image: url('fondo_perfil.png');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: center;
-        margin: 0;
-        padding: 0;
-    }
-    .container {
-        max-width: 600px;
-        margin: 0 auto;
-        padding-top: 20px;
-    }
-    .button-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-    .button-container a {
-        margin: 10px;
-    }
-    img {
-        max-width: 200px;
-        height: auto;
-    }
-</style>
 <body>
-<a href="Recomendado.html">
-    <img src="Recomendado.png">
-</a>
-<a href="Tuperfil.html">
-    <img src="Tuperfil.png">
-</a>
-<a href="Buscar.html">
-    <img src="Buscar.png">
-</a>
-<a href="Chat.html">
-    <img src="Chat.png">
-</a>
-<a href="Match.html">
-    <img src="Match.png">
-</a>
+    <div class="container">
+        <div class="profile-info">
+            <h1 th:text="'Hola, ' + ${perro.nombre} + '!'"></h1>
+            <p th:text="'Edad: ' + ${perro.edad}"></p>
+            <p th:text="'Raza: ' + ${perro.raza}"></p>
+            <p th:text="'Ubicación: ' + ${perro.ubicacion}"></p>
+        </div>
+        <div class="profile-info" th:if="${bestMatch != null}">
+            <h2>Mejor match para ti:</h2>
+            <p th:text="'Nombre: ' + ${bestMatch.nombre}"></p>
+            <p th:text="'Edad: ' + ${bestMatch.edad}"></p>
+            <p th:text="'Raza: ' + ${bestMatch.raza}"></p>
+            <p th:text="'Ubicación: ' + ${bestMatch.ubicacion}"></p>
+        </div>
+        <div class="profile-info" th:if="${bestMatch == null}">
+            <p>No se encontró un buen match.</p>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <a href="Recomendado.html">
+            <img src="Recomendado.png">
+        </a>
+        <a href="Tuperfil.html">
+            <img src="Tuperfil.png">
+        </a>
+        <a href="Buscar.html">
+            <img src="Buscar.png">
+        </a>
+        <a href="Chat.html">
+            <img src="Chat.png">
+        </a>
+        <a href="Match.html">
+            <img src="Match.png">
+        </a>
+    </div>
 </body>
 </html>

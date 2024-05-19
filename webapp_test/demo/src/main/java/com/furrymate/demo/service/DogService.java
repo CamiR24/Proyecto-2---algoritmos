@@ -14,10 +14,7 @@ import org.neo4j.driver.Result;
 import org.neo4j.driver.Record;
 import static org.neo4j.driver.Values.parameters;
 
-import static org.neo4j.driver.Values.parameters;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Service
 public class DogService {
@@ -30,47 +27,46 @@ public class DogService {
 
     @SuppressWarnings("deprecation")
     public void createPerro(Perro perro) {
-    try (Session session = driver.session()) {
-        session.writeTransaction(tx -> {
-            tx.run("CREATE (p:Perro {nombre: $nombre})",
-                parameters("nombre", perro.getNombre()));
+        try (Session session = driver.session()) {
+            session.writeTransaction(tx -> {
+                tx.run("CREATE (p:Perro {nombre: $nombre})",
+                    parameters("nombre", perro.getNombre()));
 
-            // Crea y conecta atributos como nodos independientes
-            String[] queries = {
-                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Raza {nombre: $raza}) CREATE (p)-[:ES_DE_RAZA]->(a)",
-                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Ubicacion {nombre: $ubicacion}) CREATE (p)-[:ESTA_EN_UBICACION]->(a)",
-                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Tamaño {tipo: $tamaño}) CREATE (p)-[:TIENE_TAMAÑO]->(a)",
-                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Edad {valor: $edad}) CREATE (p)-[:TIENE_EDAD]->(a)",
-                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Pedigree {valor: $pedigree}) CREATE (p)-[:TIENE_PEDIGREE]->(a)",
-                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Entrenado {valor: $entrenado}) CREATE (p)-[:ESTA_ENTRENADO]->(a)",
-                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Peso {valor: $peso}) CREATE (p)-[:TIENE_PESO]->(a)",
-                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Sexo {tipo: $sexo}) CREATE (p)-[:TIENE_SEXO]->(a)",
-                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Enfermedades {estado: $enfermedades}) CREATE (p)-[:TIENE_ENFERMEDADES]->(a)",
-                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Cría {estado: $cria}) CREATE (p)-[:ES_PARA_CRIA]->(a)",
-                "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Color {nombre: $color}) CREATE (p)-[:ES_DE_COLOR]->(a)"
-            };
+                // Crea y conecta atributos como nodos independientes
+                String[] queries = {
+                    "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Raza {nombre: $raza}) CREATE (p)-[:ES_DE_RAZA]->(a)",
+                    "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Ubicacion {nombre: $ubicacion}) CREATE (p)-[:ESTA_EN_UBICACION]->(a)",
+                    "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Tamaño {tipo: $tamaño}) CREATE (p)-[:TIENE_TAMAÑO]->(a)",
+                    "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Edad {valor: $edad}) CREATE (p)-[:TIENE_EDAD]->(a)",
+                    "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Pedigree {valor: $pedigree}) CREATE (p)-[:TIENE_PEDIGREE]->(a)",
+                    "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Entrenado {valor: $entrenado}) CREATE (p)-[:ESTA_ENTRENADO]->(a)",
+                    "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Peso {valor: $peso}) CREATE (p)-[:TIENE_PESO]->(a)",
+                    "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Sexo {tipo: $sexo}) CREATE (p)-[:TIENE_SEXO]->(a)",
+                    "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Enfermedades {estado: $enfermedades}) CREATE (p)-[:TIENE_ENFERMEDADES]->(a)",
+                    "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Cría {estado: $cria}) CREATE (p)-[:ES_PARA_CRIA]->(a)",
+                    "MATCH (p:Perro {nombre: $nombre}) MERGE (a:Color {nombre: $color}) CREATE (p)-[:ES_DE_COLOR]->(a)"
+                };
 
-            for (String query : queries) {
-                tx.run(query, parameters(
-                    "nombre", perro.getNombre(),
-                    "raza", perro.getRaza(),
-                    "ubicacion", perro.getUbicacion(),
-                    "tamaño", perro.getTamaño(),
-                    "edad", perro.getEdad(),
-                    "pedigree", perro.getTienePedigree(),
-                    "entrenado", perro.getTieneEntrenamiento(),
-                    "peso", perro.getPeso(),
-                    "sexo", perro.getSexo(),
-                    "enfermedades", perro.getTieneEnfermedades(),
-                    "cria", perro.getCria(),
-                    "color", perro.getColor()
-                ));
-            }
-            return null;
-        });
+                for (String query : queries) {
+                    tx.run(query, parameters(
+                        "nombre", perro.getNombre(),
+                        "raza", perro.getRaza(),
+                        "ubicacion", perro.getUbicacion(),
+                        "tamaño", perro.getTamaño(),
+                        "edad", perro.getEdad(),
+                        "pedigree", perro.getTienePedigree(),
+                        "entrenado", perro.getTieneEntrenamiento(),
+                        "peso", perro.getPeso(),
+                        "sexo", perro.getSexo(),
+                        "enfermedades", perro.getTieneEnfermedades(),
+                        "cria", perro.getCria(),
+                        "color", perro.getColor()
+                    ));
+                }
+                return null;
+            });
+        }
     }
-}
-
 
     public List<Perro> getPerrosDetails() {
         List<Perro> perros = new ArrayList<>();
@@ -114,9 +110,97 @@ public class DogService {
         }
         return perros;
     }
+
+    public List<Perro> getPerros() {
+        List<Perro> perros = new ArrayList<>();
+        try (Session session = driver.session()) {
+            String query = """
+                MATCH (p:Perro)-[:ES_DE_RAZA]->(raza),
+                      (p)-[:ESTA_EN_UBICACION]->(ubicacion),
+                      (p)-[:TIENE_TAMAÑO]->(tamaño),
+                      (p)-[:TIENE_EDAD]->(edad),
+                      (p)-[:TIENE_PEDIGREE]->(pedigree),
+                      (p)-[:ESTA_ENTRENADO]->(entrenado),
+                      (p)-[:TIENE_PESO]->(peso),
+                      (p)-[:TIENE_SEXO]->(sexo),
+                      (p)-[:TIENE_ENFERMEDADES]->(enfermedades),
+                      (p)-[:ES_PARA_CRIA]->(cria)
+                RETURN p.nombre AS nombre, raza.nombre AS raza, ubicacion.nombre AS ubicacion,
+                       tamaño.tipo AS tamaño, edad.valor AS edad, pedigree.valor AS tienePedigree,
+                       entrenado.valor AS tieneEntrenamiento, peso.valor AS peso, sexo.tipo AS sexo,
+                       enfermedades.estado AS tieneEnfermedades, cria.estado AS paraCria
+            """;
+            Result result = session.run(query);
+            while (result.hasNext()) {
+                Record record = result.next();
+                Perro perro = new Perro(
+                    record.get("nombre").asString(),
+                    record.get("raza").asString(),
+                    record.get("ubicacion").asString(),
+                    record.get("tamaño").asString(),
+                    record.get("edad").asInt(),
+                    record.get("tienePedigree").asBoolean(),
+                    record.get("tieneEntrenamiento").asBoolean(),
+                    record.get("peso").asInt(),
+                    record.get("sexo").asString(),
+                    record.get("tieneEnfermedades").asBoolean(),
+                    record.get("paraCria").asBoolean()
+                );
+                perros.add(perro);
+            }
+        }
+        return perros;
+    }
     
-
-
+    public Perro findBestMatch(Perro myDog, List<Perro> allPerros) {
+        Perro bestMatch = null;
+        double maxScore = Double.NEGATIVE_INFINITY;
+        for (Perro perro : allPerros) {
+            if (!perro.getNombre().equals(myDog.getNombre())) { // Asegúrate de no compararlo consigo mismo
+                double score = calcularPeso(myDog, perro);
+                if (score > maxScore) {
+                    maxScore = score;
+                    bestMatch = perro;
+                }
+            }
+        }
+        return bestMatch;
+    }
+    
+    private double calcularPeso(Perro p1, Perro p2) {
+        double peso = 0;
+        peso += (p1.getRaza().equals(p2.getRaza())) ? 10 : 0;
+        peso += (p1.getUbicacion().equals(p2.getUbicacion())) ? 15 : 0;
+        
+        // Corrección para comparar los tamaños como String
+        peso += (p1.getTamaño().equals(p2.getTamaño())) ? 10 : 0;
+    
+        peso += calcularDiferenciaEdad(p1.getEdad(), p2.getEdad());
+        peso += (p1.getTienePedigree() == p2.getTienePedigree()) ? 10 : 0;
+        peso += (p1.getTieneEntrenamiento() == p2.getTieneEntrenamiento()) ? 10 : 0;
+        peso += calcularDiferenciaPeso(p1.getPeso(), p2.getPeso());
+        peso += (p1.getSexo().equals(p2.getSexo())) ? 0 : 10;
+        peso += (p1.getTieneEnfermedades() == p2.getTieneEnfermedades()) ? 0 : 10;
+        peso += (p1.getCria() == p2.getCria()) ? 10 : 0;
+        return peso;
+    }
+    
+    private int calcularDiferenciaEdad(int edad1, int edad2) {
+        int diferencia = Math.abs(edad1 - edad2);
+        if (diferencia == 0) return 10;
+        if (diferencia <= 2) return 7;
+        if (diferencia <= 5) return 3;
+        return 0;
+    }
+    
+    private int calcularDiferenciaPeso(int peso1, int peso2) {
+        int diferencia = Math.abs(peso1 - peso2);
+        if (diferencia == 0) return 10;
+        if (diferencia <= 5) return 7;
+        return 0;
+    }
+        
+    
     public void close() {
         driver.close();
     }

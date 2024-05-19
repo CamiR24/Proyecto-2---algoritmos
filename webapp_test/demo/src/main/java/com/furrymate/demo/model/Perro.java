@@ -58,6 +58,25 @@ public class Perro {
     @Property("cria")
     private boolean cria;
 
+    public Perro(){
+        
+    }
+
+    public Perro(String nombre, String raza, String ubicacion, String tamaño, int edad, boolean tienePedigree,
+        boolean tieneEntrenamiento, int peso, String sexo, boolean tieneEnfermedades, boolean cria) {
+        this.nombre = nombre;
+        this.raza = raza;
+        this.ubicacion = ubicacion;
+        this.tamaño = tamaño;
+        this.edad = edad;
+        this.tienePedigree = tienePedigree;
+        this.tieneEntrenamiento = tieneEntrenamiento;
+        this.peso = peso;
+        this.sexo = sexo;
+        this.tieneEnfermedades = tieneEnfermedades;
+        this.cria = cria;
+    }
+
     public String getAntecedentes() {
         return antecedentes;
     }
