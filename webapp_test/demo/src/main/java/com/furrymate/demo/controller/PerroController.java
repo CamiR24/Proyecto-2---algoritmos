@@ -32,7 +32,7 @@ public class PerroController {
     public String registrarPerro(@ModelAttribute Perro perro, BindingResult result, Model model, SessionStatus status) {
         if (result.hasErrors()) {
             model.addAttribute("errorMessage", "Error de validación en el formulario.");
-            return "registro";
+            return "redirect:/dog-register";
         }
         try {
             dogService.createPerro(perro);

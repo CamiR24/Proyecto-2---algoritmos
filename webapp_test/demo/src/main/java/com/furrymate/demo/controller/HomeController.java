@@ -55,10 +55,4 @@ public class HomeController {
         model.addAttribute("bestMatch", bestMatch);
         return "Profile";  // Nombre del archivo HTML en 'src/main/resources/templates'
     }
-
-    @GetMapping("/error")
-    public String error(Model model) {
-        model.addAttribute("errorMessage", "Ha ocurrido un error inesperado. Por favor intenta nuevamente.");
-        return "Error";  // Nombre del archivo HTML en 'src/main/resources/templates'
-    }
 }
