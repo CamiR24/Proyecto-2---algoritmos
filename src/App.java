@@ -19,8 +19,8 @@ public class App {
 	public static void main(String[] args) {
 		
 		String username = "neo4j";
-		String password = "match-kill-lookouts";
-		String boltURL = "bolt://3.238.147.237:7687";
+		String password = "duress-bullets-sights";
+		String boltURL = "bolt://44.205.14.158:7687";
 		
 		try (EmbeddedNeo4j db = new EmbeddedNeo4j( boltURL, username, password ) )
         {
