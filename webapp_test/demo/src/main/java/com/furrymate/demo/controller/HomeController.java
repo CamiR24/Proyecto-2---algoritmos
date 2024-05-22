@@ -53,6 +53,6 @@ public class HomeController {
         Perro bestMatch = dogService.findBestMatch(myDog, allPerros);
         
         model.addAttribute("bestMatch", bestMatch);
-        return "Profile";  // Nombre del archivo HTML en 'src/main/resources/templates'
+        return "Match";  // Nombre del archivo HTML en 'src/main/resources/templates'
     }
 }

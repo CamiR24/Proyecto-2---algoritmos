@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="styles_profile.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Furry Mate</h1>
+        <ul class="nav-links">
+            <li><a href="#vision">Visión</a></li>
+            <li><a href="#mision">Misión</a></li>
+            <li><a href="#conocenos">Conócenos</a></li>
+            <li><a href="#contactanos">Contáctanos</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="profile-info">
+            <h1 th:text="'Hola, ' + ${perro.nombre} + '!'"></h1>
+            <p th:text="'Edad: ' + ${perro.edad}"></p>
+            <p th:text="'Raza: ' + ${perro.raza}"></p>
+            <p th:text="'Ubicación: ' + ${perro.ubicacion}"></p>
+        </div>
+        <div class="profile-info" th:if="${bestMatch != null}">
+            <h2>Mejor match para ti:</h2>
+            <p th:text="'Nombre: ' + ${bestMatch.nombre}"></p>
+            <p th:text="'Edad: ' + ${bestMatch.edad}"></p>
+            <p th:text="'Raza: ' + ${bestMatch.raza}"></p>
+            <p th:text="'Ubicación: ' + ${bestMatch.ubicacion}"></p>
+        </div>
+        <div class="profile-info" th:if="${bestMatch == null}">
+            <p>No se encontró un buen match.</p>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <a href="Recomendado.html">Recomendado</a>
+        <a href="Tuperfil.html">Tu perfil</a>
+        <a href="Buscar.html">Buscar</a>
+        <a href="Chat.html">Chat</a>
+        <a href="Match.html">Match</a>
+    </div>
+</body>
+</html>
