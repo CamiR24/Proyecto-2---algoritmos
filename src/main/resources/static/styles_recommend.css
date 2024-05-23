@@ -44,7 +44,7 @@ body {
     color: #4CAF50;
 }
 .container {
-    max-width: 1200px;
+    max-width: 600px;
     margin: 60px auto 20px; /* Aumenta el margen superior para no solaparse con el header */
     padding: 20px;
     background-color: rgba(0, 0, 0, 0.7);
