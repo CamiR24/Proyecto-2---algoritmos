@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="styles_recommended.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Furry Mate</h1>
+        <ul class="nav-links">
+            <li><a href="/vision">Visión</a></li>
+            <li><a href="/mission">Misión</a></li>
+            <li><a href="/about">Conócenos</a></li>
+            <li><a href="/contact">Contáctanos</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="profile-info">
+            <h1 th:text="Chat"></h1>
+            <h3>Disponible en proximas actualizaciones</h3>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <a href="/recommended">Recomendado</a>
+        <a href="/profile">Tu perfil</a>
+        <a href="/search">Buscar</a>
+        <a href="/chat">Chat</a>
+        <a href="/match">Match</a>
+    </div>
+</body>
+</html>

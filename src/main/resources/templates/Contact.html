@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="styles_info.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Furry Mate</h1>
+        <ul class="nav-links">
+            <li><a href="/vision">Visión</a></li>
+            <li><a href="/mission">Misión</a></li>
+            <li><a href="/about">Conócenos</a></li>
+            <li><a href="/contact">Contáctanos</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="profile-info">
+            <h1 th:text="Contáctanos"></h1>
+            <p> Nos encantaría saber de ti. Si tienes alguna pregunta, comentario o sugerencia, no dudes en ponerte en contacto con nosotros. 
+                Estamos aquí para ayudarte y asegurarnos de que tanto tú como tu perro tengan la mejor experiencia posible en Furry Mate.</p>
+
+            <p>Email: support@furrymate.com</p>
+            <p></p>
+            <p>Teléfono: +1 (555) 123-4567</p>
+            <p></p>
+            <p>Dirección: 1234 Furry Lane, Ciudad Canina, PA 12345</p>
+            <p></p>
+            <p>Redes Sociales:</p>
+            <p></p>
+            <p>Facebook: facebook.com/furrymate</p>
+            <p>Instagram: instagram.com/furrymate</p>
+            <p>Twitter: twitter.com/furrymate</p>
+            <p></p>
+            <p>¡Estamos aquí para ayudarte a construir conexiones que harán feliz a tu perro!</p>
+                
+        </div>
+    </div>
+
+    <div class="button-container" th:if="${perro != null}">
+        <a href="/recommended">Recomendado</a>
+        <a href="/profile">Tu perfil</a>
+        <a href="/search">Buscar</a>
+        <a href="/chat">Chat</a>
+        <a href="/match">Match</a>
+    </div>
+</body>
+</html>

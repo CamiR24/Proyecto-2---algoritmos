@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="styles_sign_up.css">
+</head>
+<body>
+<div class="container">
+    <h2>Sign Up</h2>
+    <form th:action="@{/perros/signup}" method="post">
+        <label for="username">Nombre de usuario:</label><br>
+        <input type="text" id="username" name="usuario" required><br>
+        <label for="password">Contraseña:</label><br>
+        <input type="password" id="password" name="password" required><br>
+        <input type="submit" value="Registrarse">
+    </form>
+</div>
+
+<div class="container" th:if="${errorMessage}">
+    <div style="color: red;">Error Message: <span th:text="${errorMessage}"></span></div>
+</div>
+
+</body>
+</html>

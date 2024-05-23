@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="styles_info.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Furry Mate</h1>
+        <ul class="nav-links">
+            <li><a href="/vision">Visión</a></li>
+            <li><a href="/mission">Misión</a></li>
+            <li><a href="/about">Conócenos</a></li>
+            <li><a href="/contact">Contáctanos</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="profile-info">
+            <h1 th:text="Conócenos"></h1>
+            <p> En Furry Mate, entendemos que los perros no son solo mascotas, sino miembros de la familia. Fundada en 2024, 
+                nuestra plataforma fue creada por amantes de los animales para facilitar la búsqueda de compañeros ideales para 
+                nuestros amigos de cuatro patas. Creemos que cada perro merece la oportunidad de socializar, jugar y formar 
+                vínculos significativos con otros perros. Utilizando algoritmos avanzados y un sistema de recomendación basado 
+                en grafos, conectamos a perros y dueños de mascotas de manera segura y efectiva, asegurando que cada encuentro 
+                sea positivo y beneficioso para todos. Ya sea que busques un amigo de juegos, una pareja para paseos diarios o 
+                simplemente nuevas amistades para tu perro, PawPartner está aquí para ayudarte a encontrar la pareja perfecta</p>
+        </div>
+    </div>
+
+    <div class="button-container" th:if="${perro != null}">
+        <a href="/recommended">Recomendado</a>
+        <a href="/profile">Tu perfil</a>
+        <a href="/search">Buscar</a>
+        <a href="/chat">Chat</a>
+        <a href="/match">Match</a>
+    </div>
+</body>
+</html>

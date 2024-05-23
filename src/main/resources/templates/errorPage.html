@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+</head>
+<body>
+    <h1>Error Page</h1>
+    <div style="color: red;">Error Message: <span th:text="${errorMessage}"></span></div>
+    <div>
+        <h2>Stack Trace:</h2>
+        <pre th:text="${stackTrace}"></pre>
+    </div>
+</body>
+</html>
