@@ -24,7 +24,8 @@ public class DogService {
     private final Driver driver;
 
     public DogService() {
-        driver = GraphDatabase.driver("bolt://44.205.14.158:7687", AuthTokens.basic("neo4j", "duress-bullets-sights"));
+        driver = GraphDatabase.driver("bolt://34.201.6.165:7687",
+                AuthTokens.basic("neo4j", "architecture-limps-conversion"));
     }
 
     public Perro getPerroByUsuarioAndPassword(String usuario, String password) {
