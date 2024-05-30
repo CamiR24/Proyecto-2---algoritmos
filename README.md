@@ -1,3 +1,78 @@
+# Manual de Instalación - Furry Mate
+
+Este manual te guiará a través del proceso de instalación de Maven y Spring Boot, así como los pasos para ejecutar la página de Furry Mate utilizando `mvnw.cmd spring-boot:run`.
+
+## Requisitos Previos
+
+Antes de comenzar con la instalación, asegúrate de cumplir con los siguientes requisitos:
+
+- **Java Development Kit (JDK) 11 o superior**: Asegúrate de tener JDK instalado en tu sistema.
+- **Git**: Asegúrate de tener Git instalado para clonar el repositorio.
+
+## Paso 1: Instalación de Maven
+
+### Windows
+
+1. **Descargar Apache Maven**:
+   - Ve a la página oficial de [Apache Maven](https://maven.apache.org/download.cgi).
+   - Descarga la versión binaria ZIP más reciente.
+
+2. **Extraer el archivo ZIP**:
+   - Extrae el contenido del archivo ZIP en una ubicación deseada, por ejemplo, `C:\Program Files\Apache\maven`.
+
+3. **Configurar las Variables de Entorno**:
+   - Agrega `MAVEN_HOME` como una variable de entorno y establece su valor como la ruta de la carpeta de Maven, por ejemplo, `C:\Program Files\Apache\maven`.
+   - Agrega `%MAVEN_HOME%\bin` a la variable de entorno `Path`.
+
+4. **Verificar la Instalación**:
+   - Abre una terminal y ejecuta el siguiente comando:
+     ```sh
+     mvn -version
+     ```
+   - Deberías ver la versión de Maven y la versión de Java.
+
+### MacOS y Linux
+
+1. **Usar Homebrew (MacOS)**:
+   - Abre una terminal y ejecuta el siguiente comando:
+     ```sh
+     brew install maven
+     ```
+
+2. **Usar el Gestor de Paquetes (Linux)**:
+   - En distribuciones basadas en Debian, ejecuta:
+     ```sh
+     sudo apt-get install maven
+     ```
+
+   - En distribuciones basadas en Red Hat, ejecuta:
+     ```sh
+     sudo yum install maven
+     ```
+
+3. **Verificar la Instalación**:
+   - Abre una terminal y ejecuta el siguiente comando:
+     ```sh
+     mvn -version
+     ```
+   - Deberías ver la versión de Maven y la versión de Java.
+
+## Paso 2: Clonar el Repositorio del Proyecto
+
+1. Abre una terminal y clona el repositorio del proyecto desde GitHub:
+   ```sh
+   git clone <URL_del_repositorio>
+
+2. Navega al directorio del proyecto:
+   ```sh
+   cd <nombre_del_proyecto>
+
+## Paso 3: Ejecutar el Proyecto con Spring Boot
+
+1. Usar el Wrapper de Maven (mvnw):
+   ```sh
+   mvnw.cmd spring-boot:run
+
 # Manual de Instrucciones - Furry Mate
 
 ## Requisitos para usar la página
