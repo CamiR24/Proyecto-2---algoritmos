@@ -2,6 +2,10 @@ package com.furrymate.demo.model;
 
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Property;
+import org.springframework.data.neo4j.core.schema.Relationship;
+
+import java.util.List;
+
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 
@@ -61,6 +65,12 @@ public class Perro {
     @Property("tieneEnfermedades")
     private boolean tieneEnfermedades;
 
+    @Relationship(type = "LIKES")
+    private List<Perro> likes;
+
+    @Relationship(type = "DISLIKES")
+    private List<Perro> dislikes;
+
     public Perro(){
         
     }
@@ -78,6 +88,22 @@ public class Perro {
         this.sexo = sexo;
         this.tieneEnfermedades = tieneEnfermedades;
         this.quedarseCria = quedarseCria;
+    }
+
+    public List<Perro> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Perro> likes) {
+        this.likes = likes;
+    }
+
+    public List<Perro> getDislikes() {
+        return dislikes;
+    }
+
+    public void setDislikes(List<Perro> dislikes) {
+        this.dislikes = dislikes;
     }
 
     public String getAntecedentes() {

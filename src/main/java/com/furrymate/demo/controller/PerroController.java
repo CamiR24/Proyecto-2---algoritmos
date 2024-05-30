@@ -6,6 +6,9 @@ import com.furrymate.demo.service.DogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+
 
 import java.util.List;
 
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,10 +34,18 @@ public class PerroController {
     private static final Logger logger = LoggerFactory.getLogger(PerroController.class);
 
     @PostMapping("/login")
-    public String login(@RequestParam String usuario, @RequestParam String password, Model model, HttpSession session) {
+    public String login(@RequestParam String usuario, @RequestParam String password, Model model, HttpSession session, HttpServletRequest request) {
+        // Limpiar la sesión antes de iniciar una nueva sesión
+        session.invalidate();
+        session = request.getSession(true);  // Crear una nueva sesión
+
         Perro perro = dogService.getPerroByUsuarioAndPassword(usuario, password);
+        System.out.println("Login - Perro obtenido: " + (perro != null ? perro.getNombre() : "No se encontró el perro con las credenciales dadas"));
         if (perro != null) {
+            // Actualizar el perro en la sesión con los detalles completos
             session.setAttribute("perro", perro);
+            Perro currentUser = (Perro) session.getAttribute("perro");
+            System.out.println("Login - Perro actual: " + currentUser.getNombre());
             return "redirect:/recommended";
         } else {
             model.addAttribute("errorMessage", "Usuario o contraseña incorrectos.");
@@ -88,6 +100,28 @@ public class PerroController {
             return "registro";
         }
     }
+
+    @PostMapping("/like/{otherPerroUsuario}")
+    public ResponseEntity<Perro> handleLike(@PathVariable String otherPerroUsuario, HttpSession session) {
+        Perro currentUser = (Perro) session.getAttribute("perro");
+        if (currentUser != null) {
+            System.out.println("Current User: " + currentUser.getUsuario());
+            Perro newRecommendation = dogService.handleLike(otherPerroUsuario, currentUser);
+            return ResponseEntity.ok(newRecommendation);
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+    
+    @PostMapping("/dislike/{otherPerroUsuario}")
+    public ResponseEntity<Perro> handleDislike(@PathVariable String otherPerroUsuario, HttpSession session) {
+        Perro currentUser = (Perro) session.getAttribute("perro");
+        if (currentUser != null) {
+            System.out.println("Current User: " + currentUser.getUsuario());
+            Perro newRecommendation = dogService.handleDislike(otherPerroUsuario, currentUser);
+            return ResponseEntity.ok(newRecommendation);
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }    
 
     @GetMapping("/details")
     @ResponseBody

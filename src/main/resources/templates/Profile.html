@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-    <link rel="stylesheet" href="styles_recommended.css">
+    <link rel="stylesheet" href="styles_info.css">
 </head>
 <body>
     <div class="header">
@@ -23,6 +23,15 @@
             <p th:text="'Edad: ' + ${perro.edad}"></p>
             <p th:text="'Raza: ' + ${perro.raza}"></p>
             <p th:text="'Ubicación: ' + ${perro.ubicacion}"></p>
+            <p th:text="'Tamaño: ' + ${perro.tamaño}"></p>
+            <p th:text="'Tiene pedigree: ' + ${perro.tienePedigree}"></p>
+            <p th:text="'Tiene entrenamiento: ' + ${perro.tieneEntrenamiento}"></p>
+            <p th:text="'Ha tenido pareja: ' + ${perro.haTenidoPareja}"></p>
+            <p th:text="'Peso: ' + ${perro.peso} + ' lb'"></p>
+            <p th:text="'Sexo: ' + ${perro.sexo}"></p>
+            <p th:text="'Tiene enfermedades: ' + ${perro.tieneEnfermedades}"></p>
+            <p th:text="'Quiere quedarse con crias: ' + ${perro.quedarseCria}"></p>
+            <p th:text="'Antecedentes: ' + ${perro.antecedentes}"></p>
         </div>
     </div>
 

@@ -10,10 +10,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* Cambiado a 'flex-start' para evitar centrado vertical de todo el contenido */
-    min-height: 100vh; /* Usamos 'min-height' para permitir que la página se extienda */
+    justify-content: flex-start;
+    min-height: 100vh;
     color: white;
-    overflow-y: auto; /* Añade scroll si es necesario */
+    overflow-y: auto;
 }
 
 .header {
@@ -22,37 +22,44 @@ body {
     padding: 20px 0;
     text-align: center;
 }
+
 .header h1 {
     margin: 0;
     color: #4CAF50;
 }
+
 .nav-links {
     display: flex;
     justify-content: center;
     list-style-type: none;
     padding: 0;
 }
+
 .nav-links li {
     margin: 0 150px;
 }
+
 .nav-links li a {
     color: white;
     text-decoration: none;
     transition: color 0.3s ease;
 }
+
 .nav-links li a:hover {
     color: #4CAF50;
 }
+
 .container {
     max-width: 600px;
-    margin: 60px auto 20px; /* Aumenta el margen superior para no solaparse con el header */
+    margin: 60px auto 20px;
     padding: 20px;
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     text-align: left;
-    width: calc(100% - 40px); /* Ajusta el ancho para garantizar que el contenido no sobrepase la pantalla */
+    width: calc(100% - 40px);
 }
+
 .profile-info {
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 8px;
@@ -60,10 +67,12 @@ body {
     margin-bottom: 20px;
     color: black;
 }
+
 h1, h2 {
     margin-top: 0;
     color: #4CAF50;
 }
+
 .button-container {
     display: flex;
     justify-content: center;
@@ -73,14 +82,34 @@ h1, h2 {
     margin-top: 10px;
     margin-bottom: 50px;
 }
-.button-container a {
+
+.button-container a, .like-button, .dislike-button {
     text-decoration: none;
     color: white;
     padding: 10px 20px;
-    background-color: #4CAF50;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
 }
+
 .button-container a:hover {
     background-color: #231cac;
+}
+
+.like-button {
+    background-color: #4CAF50;
+}
+
+.like-button:hover {
+    background-color: #388E3C;
+}
+
+.dislike-button {
+    background-color: #f44336;
+}
+
+.dislike-button:hover {
+    background-color: #d32f2f;
 }

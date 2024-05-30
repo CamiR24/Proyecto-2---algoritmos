@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Recommended</title>
     <link rel="stylesheet" href="styles_recommend.css">
 </head>
 <body>
@@ -34,8 +34,7 @@
             <p th:text="'Antecedentes: ' + ${perro.antecedentes}"></p>
         </div>
         <div class="profile-info" th:if="${bestMatch != null}">
-            <h2>Mejor match para ti:</h2>
-            <p th:text="'Nombre: ' + ${bestMatch.nombre}"></p>
+            <h1 th:text="'¡Mejor match para ti es: ' + ${bestMatch.nombre} + '!'"></h1>
             <p th:text="'Edad: ' + ${bestMatch.edad}"></p>
             <p th:text="'Raza: ' + ${bestMatch.raza}"></p>
             <p th:text="'Ubicación: ' + ${bestMatch.ubicacion}"></p>
@@ -48,6 +47,10 @@
             <p th:text="'Tiene enfermedades: ' + ${bestMatch.tieneEnfermedades}"></p>
             <p th:text="'Quiere quedarse con crias: ' + ${bestMatch.quedarseCria}"></p>
             <p th:text="'Antecedentes: ' + ${bestMatch.antecedentes}"></p>
+            <div class="button-container">
+                <button th:data-usuario="${bestMatch.usuario}" class="like-button">Like</button>
+                <button th:data-usuario="${bestMatch.usuario}" class="dislike-button">Dislike</button>
+            </div>
         </div>
         <div class="profile-info" th:if="${bestMatch == null}">
             <p>No se encontró un buen match.</p>
@@ -61,5 +64,82 @@
         <a href="/chat">Chat</a>
         <a href="/match">Match</a>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function handleLike(usuario) {
+                fetch(`/perros/like/${usuario}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Error en la solicitud de like');
+                }).then(data => {
+                    console.log('Reolading...');
+                    window.location.reload();
+                }).catch(error => {
+                    console.error('Error:', error);
+                    console.log('Reolading...');
+                    window.location.reload();
+                });
+            }
+
+            function handleDislike(usuario) {
+                fetch(`/perros/dislike/${usuario}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Error en la solicitud de dislike');
+                }).then(data => {
+                    console.log('Reolading...');
+                    window.location.reload();
+                }).catch(error => {
+                    console.error('Error:', error);
+                    console.log('Reolading...');
+                    window.location.reload();
+                });
+            }
+
+            function updateMatch(data) {
+                if (data) {
+                    document.querySelector(".profile-info:nth-child(2) p:nth-child(2)").textContent = "Nombre: " + data.nombre;
+                    document.querySelector(".profile-info:nth-child(2) p:nth-child(3)").textContent = "Edad: " + data.edad;
+                    document.querySelector(".profile-info:nth-child(2) p:nth-child(4)").textContent = "Raza: " + data.raza;
+                    document.querySelector(".profile-info:nth-child(2) p:nth-child(5)").textContent = "Ubicación: " + data.ubicacion;
+                    document.querySelector(".profile-info:nth-child(2) p:nth-child(6)").textContent = "Tamaño: " + data.tamaño;
+                    document.querySelector(".profile-info:nth-child(2) p:nth-child(7)").textContent = "Tiene pedigree: " + data.tienePedigree;
+                    document.querySelector(".profile-info:nth-child(2) p:nth-child(8)").textContent = "Tiene entrenamiento: " + data.tieneEntrenamiento;
+                    document.querySelector(".profile-info:nth-child(2) p:nth-child(9)").textContent = "Ha tenido pareja: " + data.haTenidoPareja;
+                    document.querySelector(".profile-info:nth-child(2) p:nth-child(10)").textContent = "Peso: " + data.peso + " lb";
+                    document.querySelector(".profile-info:nth-child(2) p:nth-child(11)").textContent = "Sexo: " + data.sexo;
+                    document.querySelector(".profile-info:nth-child(2) p:nth-child(12)").textContent = "Tiene enfermedades: " + data.tieneEnfermedades;
+                    document.querySelector(".profile-info:nth-child(2) p:nth-child(13)").textContent = "Quiere quedarse con crias: " + data.quedarseCria;
+                    document.querySelector(".profile-info:nth-child(2) p:nth-child(14)").textContent = "Antecedentes: " + data.antecedentes;
+                    document.querySelector(".like-button").setAttribute("data-usuario", data.usuario);
+                    document.querySelector(".dislike-button").setAttribute("data-usuario", data.usuario);
+                } else {
+                    document.querySelector(".profile-info:nth-child(2)").innerHTML = "<p>No se encontró un buen match.</p>";
+                }
+            }
+
+            // Attach event listeners to buttons
+            document.querySelectorAll('.like-button').forEach(button => {
+                button.addEventListener('click', () => handleLike(button.getAttribute('data-usuario')));
+            });
+
+            document.querySelectorAll('.dislike-button').forEach(button => {
+                button.addEventListener('click', () => handleDislike(button.getAttribute('data-usuario')));
+            });
+        });
+    </script>
 </body>
 </html>
