@@ -1,3 +1,6 @@
+## Documentación de usuarios probando la página: 
+https://drive.google.com/drive/folders/1FTyAS4qfaZ8tyk1S8Bl8w7BAvLJFtylD?usp=sharing
+
 # Manual de Instalación - Furry Mate
 
 Este manual te guiará a través del proceso de instalación de Maven y Spring Boot, así como los pasos para ejecutar la página de Furry Mate utilizando `mvnw.cmd spring-boot:run`.
@@ -70,8 +73,23 @@ Antes de comenzar con la instalación, asegúrate de cumplir con los siguientes 
 ## Paso 3: Ejecutar el Proyecto con Spring Boot
 
 1. Usar el Wrapper de Maven (mvnw):
+   - En Windows:
    ```sh
    mvnw.cmd spring-boot:run
+   ```
+
+   - En MacOS y Linux:
+   ```sh
+   mvnw.cmd spring-boot:run
+   ```
+2. Esperar a que el Servidor Inicie:
+   El comando anterior iniciará el servidor de Spring Boot y la aplicación estará disponible en `http://localhost:8080`.
+
+# ¡Listo! 
+
+Ahora deberías tener la aplicación de Furry Mate en funcionamiento. Si tienes algún problema o necesitas más ayuda, no dudes en contactar con nuestro soporte técnico.
+
+¡Disfruta utilizando Furry Mate!
 
 # Manual de Instrucciones - Furry Mate
 
